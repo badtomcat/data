@@ -1,0 +1,59 @@
+{
+  "name": "badtomcat/data",
+  "description": "data tuple component",
+  "type": "project",
+  "keywords": [
+    "data",
+    "tuple",
+    "component"
+  ],
+  "prefer-stable": true,
+  "homepage": "https://github.com/badtomcat/data",
+  "license": "MIT",
+  "authors": [
+    {
+      "name": "awei.tian@qq.com",
+      "email": "531164479@qq.com"
+    }
+  ],
+  "minimum-stability": "dev",
+  "require": {
+    "php": ">=5.4.0",
+    "badtomcat/filesystem":"dev-master",
+    "badtomcat/connection":"dev-master",
+    "badtomcat/cache":"dev-master",
+    "badtomcat/validator":"dev-master",
+    "badtomcat/reflection": "dev-master"
+  },
+  "require-dev": {
+        "phpunit/phpunit": "~5.0"
+  },
+  "autoload": {
+    "files": [],
+    "psr-4": {
+      "Badtomcat\\Data\\": "src/"
+    }
+  }
+  ,"repositories": [
+    {
+      "type": "vcs",
+      "url": "https://github.com/badtomcat/connection.git"
+    },
+  {
+    "type": "vcs",
+    "url": "https://github.com/badtomcat/filesystem.git"
+  },
+  {
+    "type": "vcs",
+    "url": "https://github.com/badtomcat/cache.git"
+  },
+  {
+    "type": "vcs",
+    "url": "https://github.com/badtomcat/reflection.git"
+  },
+    {
+      "type": "vcs",
+      "url": "https://github.com/badtomcat/validator.git"
+    }
+  ]
+}
