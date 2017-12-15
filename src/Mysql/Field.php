@@ -27,8 +27,241 @@ use Badtomcat\Validator\DateValidator;
 use Badtomcat\Validator\NumberValidator;
 
 class Field extends Component {
+    /**
+     * @return $this
+     */
+    public function setDataType_tinyint()
+    {
+        parent::setDataType("tinyint");
+        return $this;
+    }
 
-	public function domainChk($value) {
+    /**
+     * @return $this
+     */
+    public function setDataType_smallint()
+    {
+        parent::setDataType("smallint");
+        return $this;
+    }
+
+
+    /**
+     * @return $this
+     */
+    public function setDataType_int()
+    {
+        parent::setDataType("int");
+        return $this;
+    }
+
+    /**
+     * @return $this
+     */
+    public function setDataType_decimal()
+    {
+        parent::setDataType("decimal");
+        return $this;
+    }
+
+    /**
+     * @return $this
+     */
+    public function setDataType_mediumint()
+    {
+        parent::setDataType("mediumint");
+        return $this;
+    }
+
+
+    /**
+     * @return $this
+     */
+    public function setDataType_float()
+    {
+        parent::setDataType("float");
+        return $this;
+    }
+
+
+    /**
+     * @return $this
+     */
+    public function setDataType_double()
+    {
+        parent::setDataType("double");
+        return $this;
+    }
+
+    /**
+     * @return $this
+     */
+    public function setDataType_text()
+    {
+        parent::setDataType("text");
+        return $this;
+    }
+
+    /**
+     * @return $this
+     */
+    public function setDataType_tinyblob()
+    {
+        parent::setDataType("tinyblob");
+        return $this;
+    }
+
+    /**
+     * @return $this
+     */
+    public function setDataType_tinytext()
+    {
+        parent::setDataType("tinytext");
+        return $this;
+    }
+
+
+    /**
+     * @return $this
+     */
+    public function setDataType_blob()
+    {
+        parent::setDataType("blob");
+        return $this;
+    }
+
+
+    /**
+     * @return $this
+     */
+    public function setDataType_mediumblob()
+    {
+        parent::setDataType("mediumblob");
+        return $this;
+    }
+
+
+    /**
+     * @return $this
+     */
+    public function setDataType_mediumtext()
+    {
+        parent::setDataType("mediumtext");
+        return $this;
+    }
+
+
+    /**
+     * @return $this
+     */
+    public function setDataType_longblob()
+    {
+        parent::setDataType("longblob");
+        return $this;
+    }
+
+    /**
+     * @return $this
+     */
+    public function setDataType_varchar()
+    {
+        parent::setDataType("varchar");
+        return $this;
+    }
+
+    /**
+     * @return $this
+     */
+    public function setDataType_char()
+    {
+        parent::setDataType("char");
+        return $this;
+    }
+
+    /**
+     * @return $this
+     */
+    public function setDataType_binary()
+    {
+        parent::setDataType("binary");
+        return $this;
+    }
+
+    /**
+     * @return $this
+     */
+    public function setDataType_varbinary()
+    {
+        parent::setDataType("varbinary");
+        return $this;
+    }
+
+    /**
+     * @return $this
+     */
+    public function setDataType_datetime()
+    {
+        parent::setDataType("datetime");
+        return $this;
+    }
+
+    /**
+     * @return $this
+     */
+    public function setDataType_timestamp()
+    {
+        parent::setDataType("timestamp");
+        return $this;
+    }
+
+    /**
+     * @return $this
+     */
+    public function setDataType_time()
+    {
+        parent::setDataType("time");
+        return $this;
+    }
+
+
+    /**
+     * @return $this
+     */
+    public function setDataType_date()
+    {
+        parent::setDataType("date");
+        return $this;
+    }
+
+
+    /**
+     * @return $this
+     */
+    public function setDataType_year()
+    {
+        parent::setDataType("year");
+        return $this;
+    }
+
+    /**
+     * @return $this
+     */
+    public function setDataType_enum()
+    {
+        parent::setDataType("enum");
+        return $this;
+    }
+
+    /**
+     * @return $this
+     */
+    public function setDataType_set()
+    {
+        parent::setDataType("set");
+        return $this;
+    }
+
+    public function domainChk($value) {
 		switch ($this->dataType) {
 			case "tinyint" :
 			case "smallint" :

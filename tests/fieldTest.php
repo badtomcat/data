@@ -3,7 +3,7 @@
 
 use Badtomcat\Db\Connection\MysqlPdoConn;
 
-class Test extends PHPUnit_Framework_TestCase {
+class fieldTest extends PHPUnit_Framework_TestCase {
     /**
      * @var MysqlPdoConn
      */
@@ -28,11 +28,15 @@ class Test extends PHPUnit_Framework_TestCase {
 
 	public function testTb2Tuple()
     {
-        $tuple = new \Badtomcat\Data\Mysql\Table2Tuple($this->con);
-        $tuple->setTbName("game");
-        $tuple->initTuple();
-        $this->assertEquals($tuple->tuple[0]->getName(),"game_id");
-        $this->assertEquals($tuple->tuple[2]->getDomain(),"800");
+        $field = new \Badtomcat\Data\Mysql\Field();
+        $field->setName("foo");
+        $field->setDomain(['a','b','c']);
+        $field->setDefault("b");
+        $field->setAlias("电源线");
+        $field->setDataType_enum();
+        $this->assertTrue($field->domainChk('c'));
+
+        $this->assertFalse($field->domainChk('f'));
     }
 }
 
