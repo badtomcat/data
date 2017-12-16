@@ -41,8 +41,8 @@ class Test extends PHPUnit_Framework_TestCase {
         $tuple = new \Badtomcat\Data\Mysql\Table2Tuple($this->con);
         $tuple->setTbName("game");
         $tuple->initTuple();
-        $this->assertEquals($tuple->tuple[0]->getName(),"game_id");
-        $this->assertEquals($tuple->tuple[2]->getDomain(),"800");
+        $this->assertEquals($tuple->tuple->get('game_id')->getName(),"game_id");
+        $this->assertEquals($tuple->tuple->get('introduce')->getDomain(),"800");
     }
 }
 

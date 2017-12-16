@@ -63,10 +63,10 @@ class fieldTest extends PHPUnit_Framework_TestCase {
         $tuple = \Badtomcat\Data\Mysql\Importer::importTuple(__DIR__.'/meta');
 
         $this->assertEquals(2,$tuple->length());
-        $field = $tuple->get(0);
+        $field = $tuple->get('foo');
         $this->assertEquals("foo",$field->getName());
 
-        $field = $tuple->get(1);
+        $field = $tuple->get('bar');
 
         $this->assertTrue($field->domainChk('dd'));
 

@@ -47,8 +47,10 @@ abstract class Component
     protected $isPk = false;
     protected $isAutoIncrement = false;
 
+    protected $order = null;
+
     /**
-     * 可用的KEY name,alias,dataType,domain,domainDescription,default,comment,isUnsiged,allowNull,isPk,isAutoIncrement
+     * 可用的KEY name,alias,dataType,domain,domainDescription,default,comment,isUnsiged,allowNull,isPk,isAutoIncrement,order
      *
      * @param array $data
      */
@@ -259,10 +261,31 @@ abstract class Component
     public function toArray()
     {
         $ret = [];
-        foreach (explode(',', 'name,alias,dataType,domain,domainDescription,default,comment,isUnsiged,allowNull,isPk,isAutoIncrement') as $attr) {
+        foreach (explode(',', 'name,alias,dataType,domain,domainDescription,default,comment,isUnsiged,allowNull,isPk,isAutoIncrement,order') as $attr) {
             $ret[$attr] = $this->{$attr};
         }
         return $ret;
+    }
+
+    /**
+     * @return null
+     */
+    public function getOrder()
+    {
+        return $this->order;
+    }
+
+
+    /**
+     * @param $order
+     * @return $this
+     */
+    public function setOrder($order)
+    {
+        if ($this->order !== $order) {
+            $this->order = $order;
+        }
+        return $this;
     }
 
     /**
