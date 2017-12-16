@@ -18,7 +18,6 @@ class fieldTest extends PHPUnit_Framework_TestCase {
            	    'password' => "root",
             	'charset' => "utf8"
             	]);
-
     }
 
     public function tearDown()
@@ -37,6 +36,41 @@ class fieldTest extends PHPUnit_Framework_TestCase {
         $this->assertTrue($field->domainChk('c'));
 
         $this->assertFalse($field->domainChk('f'));
+    }
+
+    /**
+     * @throws Exception
+     */
+    public function testImport()
+    {
+        $field = \Badtomcat\Data\Mysql\Importer::importField(__DIR__.'/meta/fielda.txt');
+        $this->assertFalse($field->isPk());
+        $this->assertEquals($field->getAlias(),"foo text");
+        $this->assertTrue($field->domainChk('c'));
+        $this->assertTrue($field->domainChk('cb'));
+        $this->assertTrue($field->domainChk(''));
+
+        $this->assertFalse($field->domainChk('foo'));
+
+        $field = \Badtomcat\Data\Mysql\Importer::importField(__DIR__.'/meta/fieldb.txt');
+        $this->assertTrue($field->domainChk('bbb'));
+        $this->assertFalse($field->domainChk('foo'));
+        $this->assertTrue(is_array($field->getDomain()));
+        $this->assertTrue(array_key_exists('aaa',$field->getDomainDescription()));
+        $this->assertEquals("d text",$field->getDomainDescription('dd'));
+
+
+        $tuple = \Badtomcat\Data\Mysql\Importer::importTuple(__DIR__.'/meta');
+
+        $this->assertEquals(2,$tuple->length());
+        $field = $tuple->get(0);
+        $this->assertEquals("foo",$field->getName());
+
+        $field = $tuple->get(1);
+
+        $this->assertTrue($field->domainChk('dd'));
+
+        $this->assertFalse($field->domainChk('ee'));
     }
 }
 

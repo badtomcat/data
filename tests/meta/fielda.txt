@@ -1,0 +1,4 @@
+name=foo
+dataType=varchar
+domain=2
+alias=foo text

@@ -32,17 +32,20 @@ abstract class Component {
 	 * @var $domain array 一般在数据类型为集合时使用
 	 */
     protected $domain;
+    /**
+     * @var array key-value形式
+     */
     protected $domainDescription;
     protected $default;
     protected $comment;
 	
 	// 根据实际情况添加三个字段
     protected $isUnsiged = false;
-    protected $allowNull = false;
+    protected $allowNull = true;
     protected $isPk = false;
     protected $isAutoIncrement = false;
 	/**
-	 * 可用的KEY name,alias,dataType,domain,default,comment,isUnsiged,allowNull,isPk,isAutoIncrement
+	 * 可用的KEY name,alias,dataType,domain,domainDescription,default,comment,isUnsiged,allowNull,isPk,isAutoIncrement
 	 *
 	 * @param array $data        	
 	 */
@@ -138,10 +141,14 @@ abstract class Component {
     }
 
     /**
+     * @param null $key
      * @return mixed
      */
-    public function getDomainDescription()
+    public function getDomainDescription($key=null)
     {
+        if (!is_null($key) && is_array($this->domainDescription) && array_key_exists($key,$this->domainDescription)) {
+            return $this->domainDescription[$key];
+        }
         return $this->domainDescription;
     }
 

@@ -60,7 +60,24 @@ class Tuple implements \IteratorAggregate,\ArrayAccess {
 		}
 		return $this;
 	}
-	
+
+    /**
+     * @param $pos
+     * @return Component
+     */
+	public function get($pos) {
+	    return $this->children[$pos];
+    }
+
+
+    /**
+     * @return int
+     */
+    public function length()
+    {
+        return count($this->children);
+    }
+
 	/**
 	 *
 	 * @param int $pos

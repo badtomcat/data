@@ -1,0 +1,5 @@
+name=bar
+dataType=enum
+domain=aaa,bbb,ccc,dd
+domainDescription=aaa text,bbb text,ccc text,d text
+alias=bar text
