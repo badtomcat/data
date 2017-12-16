@@ -6,31 +6,33 @@
  * @Desc: 关系数据库中的分量
  * 依赖:
  */
+
 namespace Badtomcat\Data;
 
-abstract class Component {
-	/**
-	 * 字段名
-	 *
-	 * @var string
-	 */
-	protected $name;
-	/**
-	 * 别名
-	 *
-	 * @var string
-	 */
+abstract class Component
+{
+    /**
+     * 字段名
+     *
+     * @var string
+     */
+    protected $name;
+    /**
+     * 别名
+     *
+     * @var string
+     */
     protected $alias;
-	
-	/**
-	 *
-	 * @var string 例如:tinyint,smallint,int,bigint
-	 */
+
+    /**
+     *
+     * @var string 例如:tinyint,smallint,int,bigint
+     */
     protected $dataType;
-	/**
-	 *
-	 * @var $domain array 一般在数据类型为集合时使用
-	 */
+    /**
+     *
+     * @var $domain array 一般在数据类型为集合时使用
+     */
     protected $domain;
     /**
      * @var array key-value形式
@@ -38,30 +40,40 @@ abstract class Component {
     protected $domainDescription;
     protected $default;
     protected $comment;
-	
-	// 根据实际情况添加三个字段
+
+    // 根据实际情况添加三个字段
     protected $isUnsiged = false;
     protected $allowNull = true;
     protected $isPk = false;
     protected $isAutoIncrement = false;
-	/**
-	 * 可用的KEY name,alias,dataType,domain,domainDescription,default,comment,isUnsiged,allowNull,isPk,isAutoIncrement
-	 *
-	 * @param array $data        	
-	 */
-	public function __construct(array $data = []) {
-		foreach ( $data as $key => $val ) {
-			if (property_exists ( $this, $key )) {
-				$this->{$key} = $val;
-			}
-		}
-	}
+
+    /**
+     * 可用的KEY name,alias,dataType,domain,domainDescription,default,comment,isUnsiged,allowNull,isPk,isAutoIncrement
+     *
+     * @param array $data
+     */
+    public function __construct(array $data = [])
+    {
+        $this->rewrite($data);
+    }
+
+    /**
+     * @param array $data
+     */
+    public function rewrite(array $data = [])
+    {
+        foreach ($data as $key => $val) {
+            if (property_exists($this, $key)) {
+                $this->{$key} = $val;
+            }
+        }
+    }
 
     /**
      * @param string $name
      * @return $this
      */
-	public function setName($name)
+    public function setName($name)
     {
         $this->name = $name;
         return $this;
@@ -144,9 +156,9 @@ abstract class Component {
      * @param null $key
      * @return mixed
      */
-    public function getDomainDescription($key=null)
+    public function getDomainDescription($key = null)
     {
-        if (!is_null($key) && is_array($this->domainDescription) && array_key_exists($key,$this->domainDescription)) {
+        if (!is_null($key) && is_array($this->domainDescription) && array_key_exists($key, $this->domainDescription)) {
             return $this->domainDescription[$key];
         }
         return $this->domainDescription;
@@ -241,13 +253,27 @@ abstract class Component {
         return $this->isPk;
     }
 
-	/**
-	 *
-	 * @param string $value        	
-	 * @return bool
-	 */
-	abstract public function domainChk($value);
-	public static function intDomainChk($value) {
-		return is_int ( $value );
-	}
+    /**
+     * @return array
+     */
+    public function toArray()
+    {
+        $ret = [];
+        foreach (explode(',', 'name,alias,dataType,domain,domainDescription,default,comment,isUnsiged,allowNull,isPk,isAutoIncrement') as $attr) {
+            $ret[$attr] = $this->{$attr};
+        }
+        return $ret;
+    }
+
+    /**
+     *
+     * @param string $value
+     * @return bool
+     */
+    abstract public function domainChk($value);
+
+    public static function intDomainChk($value)
+    {
+        return is_int($value);
+    }
 }

@@ -26,6 +26,16 @@ class Test extends PHPUnit_Framework_TestCase {
 
     }
 
+    public function testToArr()
+    {
+        $f = new \Badtomcat\Data\Mysql\Field();
+        $f->setName("foo");
+        $f->setDataType_enum();
+        $f->setDomain(['foo','bar']);
+        $this->assertTrue(is_array($f->toArray()));
+        $this->assertTrue(array_key_exists('name',$f->toArray()));
+    }
+
 	public function testTb2Tuple()
     {
         $tuple = new \Badtomcat\Data\Mysql\Table2Tuple($this->con);
