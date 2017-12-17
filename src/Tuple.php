@@ -92,7 +92,9 @@ class Tuple implements \IteratorAggregate
     }
 
     /**
-     *
+     * THIS中不存在,添加
+     * 同时存在,REWRITE
+     * 存在THIS,不存在TUPLE中,保留
      * @param Tuple $tuple
      * @return $this
      */
