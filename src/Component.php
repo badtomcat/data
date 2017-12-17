@@ -47,7 +47,7 @@ abstract class Component
     protected $isPk = false;
     protected $isAutoIncrement = false;
 
-    protected $order = null;
+    protected $order = 0;
 
     /**
      * 可用的KEY name,alias,dataType,domain,domainDescription,default,comment,isUnsiged,allowNull,isPk,isAutoIncrement,order
@@ -61,6 +61,8 @@ abstract class Component
 
     /**
      * @param array $data
+     *
+     * @return Component
      */
     public function rewrite(array $data = [])
     {
@@ -69,6 +71,17 @@ abstract class Component
                 $this->{$key} = $val;
             }
         }
+        return $this;
+    }
+
+    public function extend(array $data = [])
+    {
+        foreach ($data as $key => $val) {
+            if (property_exists($this, $key)) {
+                $this->{$key} = $val;
+            }
+        }
+        return $this;
     }
 
     /**
