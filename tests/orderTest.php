@@ -108,11 +108,22 @@ class orderTest extends PHPUnit_Framework_TestCase {
         $new_tuple = new \Badtomcat\Data\Tuple();
         $field = new \Badtomcat\Data\Mysql\Field();
         $field->setName("bar");
+        $field->setDataType_enum();
         $field->setDomain(['a','b','c','d']);
         $field->setDefault("d");
         $new_tuple->append($field);
 
+        $field = new \Badtomcat\Data\Mysql\Field();
+        $field->setName("uuu");
+        $field->setDataType_varchar();
+        $field->setDomain(5);
+        $field->setDefault("uuu");
+        $new_tuple->append($field);
+
+
         $tuple->rewrite($new_tuple);
+
+        $this->assertEquals($tuple->get("uuu")->getDefault(),'uuu');
 
         $component = new \Badtomcat\Data\Mysql\Field();
         $component->setName("stand-index-0");
@@ -125,7 +136,7 @@ class orderTest extends PHPUnit_Framework_TestCase {
         $component->setDataType_varchar();
         $tuple->insertAfter("bar",$component);
 
-        $ret = ['stand-index-0','bar','stand-index-2','foo'];
+        $ret = ['uuu','stand-index-0','bar','stand-index-2','foo'];
         $cmp = $tuple->getOrderIndex();
         $this->assertArraySubset($ret,$cmp);
     }

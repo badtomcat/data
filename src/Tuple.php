@@ -6,27 +6,32 @@
  * @Desc: Tuple 元组 关系表中的一行称为一个元组
  * 依赖:
  */
+
 namespace Badtomcat\Data;
 
-class Tuple implements \IteratorAggregate {
+class Tuple implements \IteratorAggregate
+{
     /**
      * @var Component[] $children
      */
-	protected $children = array ();
-	public function __construct(array $data = array()) {
-		foreach ( $data as $t ) {
-			if ($t instanceof Component) {
-				$this->children [] = $t;
-			}
-		}
-	}
+    protected $children = array();
+
+    public function __construct(array $data = array())
+    {
+        foreach ($data as $t) {
+            if ($t instanceof Component) {
+                $this->children [] = $t;
+            }
+        }
+    }
 
     /**
      * @return \ArrayIterator
      */
-	public function getIterator() {
-		return new \ArrayIterator ( $this->children );
-	}
+    public function getIterator()
+    {
+        return new \ArrayIterator ($this->children);
+    }
 
     /**
      * 按现有ORDER排序
@@ -35,16 +40,15 @@ class Tuple implements \IteratorAggregate {
     public function order()
     {
         $copy = $this->children;
-        usort($copy,function(Component $a,Component $b){
+        usort($copy, function (Component $a, Component $b) {
             $ao = $a->getOrder();
             $bo = $b->getOrder();
             if ($ao == $bo)
                 return 0;
-            return ($ao < $bo) ? -1: 1;
+            return ($ao < $bo) ? -1 : 1;
         });
         $this->children = [];
-        foreach ($copy as $component)
-        {
+        foreach ($copy as $component) {
             $this->children[$component->getName()] = $component;
         }
         return $this;
@@ -67,41 +71,38 @@ class Tuple implements \IteratorAggregate {
     public function addStepToOrder($step = 10)
     {
         $i = 0;
-        foreach ($this->children as $child)
-        {
+        foreach ($this->children as $child) {
             $child->setOrder($child->getOrder() + $i * $step);
             $i++;
         }
         return $this;
     }
 
-	/**
-	 *
-	 * @param Tuple $tuple
-	 * @return $this
-	 */
-	public function appendTuple(Tuple $tuple) {
-		foreach ( $tuple as $t ) {
-			$this->append ( $t );
-		}
-		return $this;
-	}
+    /**
+     *
+     * @param Tuple $tuple
+     * @return $this
+     */
+    public function appendTuple(Tuple $tuple)
+    {
+        foreach ($tuple as $t) {
+            $this->append($t);
+        }
+        return $this;
+    }
 
     /**
      *
      * @param Tuple $tuple
      * @return $this
      */
-	public function rewrite(Tuple $tuple) {
-	    foreach ($tuple as $component)
-        {
+    public function rewrite(Tuple $tuple)
+    {
+        foreach ($tuple as $component) {
             $c = $this->get($component->getName());
-            if ($c != null)
-            {
+            if ($c != null) {
                 $c->rewrite($component->toArray());
-            }
-            else
-            {
+            } else {
                 $this->append($component);
             }
         }
@@ -112,8 +113,11 @@ class Tuple implements \IteratorAggregate {
      * @param $name
      * @return Component
      */
-	public function get($name) {
-	    return $this->children[$name];
+    public function get($name)
+    {
+        if (isset($this->children[$name]))
+            return $this->children[$name];
+        return null;
     }
 
 
@@ -125,15 +129,16 @@ class Tuple implements \IteratorAggregate {
         return count($this->children);
     }
 
-	/**
-	 *
-	 * @param Component $component        	
-	 * @return $this
-	 */
-	public function append(Component $component) {
-		$this->children [$component->getName()] = $component;
-		return $this;
-	}
+    /**
+     *
+     * @param Component $component
+     * @return $this
+     */
+    public function append(Component $component)
+    {
+        $this->children [$component->getName()] = $component;
+        return $this;
+    }
 
     /**
      * 内部进行了ORDER和addStepToOrder
@@ -141,9 +146,9 @@ class Tuple implements \IteratorAggregate {
      * @param Component $component
      * @return $this|bool
      */
-	public function insertBefore($name,Component $component)
+    public function insertBefore($name, Component $component)
     {
-        if (!array_key_exists($name,$this->children))
+        if (!array_key_exists($name, $this->children))
             return false;
         $this->order();
         $this->addStepToOrder();
@@ -159,9 +164,9 @@ class Tuple implements \IteratorAggregate {
      * @param Component $component
      * @return $this|bool
      */
-    public function insertAfter($name,Component $component)
+    public function insertAfter($name, Component $component)
     {
-        if (!array_key_exists($name,$this->children))
+        if (!array_key_exists($name, $this->children))
             return false;
         $this->order();
         $this->addStepToOrder();
@@ -175,12 +180,13 @@ class Tuple implements \IteratorAggregate {
      * @param $name
      * @return $this
      */
-	public function remove($name) {
-		if (isset ( $this->children [$name] )) {
-			unset ( $this->children [$name] );
-		}
-		return $this;
-	}
+    public function remove($name)
+    {
+        if (isset ($this->children [$name])) {
+            unset ($this->children [$name]);
+        }
+        return $this;
+    }
 //
 //    /**
 //     * Whether a offset exists
