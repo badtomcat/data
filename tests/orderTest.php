@@ -140,4 +140,35 @@ class orderTest extends PHPUnit_Framework_TestCase {
         $cmp = $tuple->getOrderIndex();
         $this->assertArraySubset($ret,$cmp);
     }
+
+
+    public function testOrderSame()
+    {
+        $field = new \Badtomcat\Data\Mysql\Field();
+        $field->setName("foo");
+        $field->setDomain(['a','b','c']);
+        $field->setDefault("b");
+        $field->setAlias("电源线");
+        $field->setDataType_enum();
+        $field->setOrder(1);
+
+        $tuple = new \Badtomcat\Data\Tuple();
+        $tuple->append($field);
+
+        $field = new \Badtomcat\Data\Mysql\Field();
+        $field->setName("bar");
+        $field->setDomain(['a','b','c']);
+        $field->setDefault("b");
+        $field->setAlias("电源线");
+        $field->setDataType_enum();
+        $field->setOrder(1);
+        $tuple->append($field);
+
+        $ret = ['foo','bar'];
+        $cmp = $tuple->order()->getOrderIndex();
+        $this->assertArraySubset($ret,$cmp);
+
+
+
+    }
 }

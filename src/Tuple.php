@@ -39,13 +39,13 @@ class Tuple implements \IteratorAggregate
      */
     public function order()
     {
-        $copy = $this->children;
+        $copy = array_reverse($this->children);
         usort($copy, function (Component $a, Component $b) {
             $ao = $a->getOrder();
             $bo = $b->getOrder();
             if ($ao == $bo)
                 return 0;
-            return ($ao < $bo) ? -1 : 1;
+            return ($ao > $bo) ? 1 : -1;
         });
         $this->children = [];
         foreach ($copy as $component) {
